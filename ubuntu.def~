@@ -1,0 +1,12 @@
+Bootstrap: docker #bootstrap agent will pull docker layers from Docker Hub
+#Bootstrap: library #library that stores cif files natively, like dockerhub
+From: ubuntu
+
+#post section pops into the container and runs below commands
+%post
+    apt-get -y update
+    apt-get -y install python
+
+#metadata that tells the container what to do when you run it with run
+%runscript
+    python "$@"
