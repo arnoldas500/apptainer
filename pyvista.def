@@ -1,0 +1,28 @@
+Bootstrap: docker
+From: ghcr.io/pyvista/pyvista:latest
+
+%environment
+export PATH="/usr/local/bin/code-server-4.7.1-linux-amd64/bin:$PATH"
+
+%post
+export DEBIAN_FRONTEND=noninteractive
+curl -sL https://deb.nodesource.com/setup_14.x | bash -
+apt-get -y update && apt-get install -y --no-install-recommends \
+wget \
+gcc \
+python3-pip \
+tzdata \
+nodejs \
+git \
+vim \
+make \
+ffmpeg \
+libsm6 \
+sudo \
+&& apt-get clean all && rm -rf /var/lib/apt/lists/*
+
+mkdir -p /usr/local/bin
+cd /usr/local/bin
+
+wget https://github.com/cdr/code-server/releases/download/v4.7.1/code-server-4.7.1-linux-amd64.tar.gz  && \
+tar -xzvf code-server-4.7.1-linux-amd64.tar.gz
